@@ -1,10 +1,11 @@
 package edu.miu.ea.sandesh.ordermanagementsystem.Restaurant.service;
 
+import edu.miu.ea.sandesh.ordermanagementsystem.Common.Exception.NotFoundException;
 import edu.miu.ea.sandesh.ordermanagementsystem.Restaurant.entity.Restaurant;
 import edu.miu.ea.sandesh.ordermanagementsystem.Restaurant.repository.RestaurantRepository;
-import edu.miu.ea.sandesh.ordermanagementsystem.common.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
@@ -52,5 +53,10 @@ public class RestaurantService {
     public void deleteRestaurant(Long id) {
         restaurantRepository.deleteById(id);
     }
+
+    public List<Restaurant> getRestaurantsByUser(@RequestParam Long userId) {
+        return restaurantRepository.findRestaurantsByUser(userId);
+    }
+
 }
 

@@ -1,11 +1,13 @@
 package edu.miu.ea.sandesh.ordermanagementsystem.Order.service;
 
+import edu.miu.ea.sandesh.ordermanagementsystem.Common.Exception.NotFoundException;
 import edu.miu.ea.sandesh.ordermanagementsystem.Order.Status;
 import edu.miu.ea.sandesh.ordermanagementsystem.Order.entity.Order;
 import edu.miu.ea.sandesh.ordermanagementsystem.Order.repository.OrderRepository;
+import edu.miu.ea.sandesh.ordermanagementsystem.Order.specification.OrderSpecifications;
 import edu.miu.ea.sandesh.ordermanagementsystem.Restaurant.entity.Restaurant;
-import edu.miu.ea.sandesh.ordermanagementsystem.common.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,6 +30,7 @@ public class OrderService {
     public List<Order> findAllOrders() {
         return orderRepository.findAll();
     }
+
 
     public Order updateOrder(Long id, Order order) {
         Optional<Order> orderOptional = orderRepository.findById(id);
@@ -62,5 +65,17 @@ public class OrderService {
 
     public List<Order> getOrdersByRestaurantId(long restaurantId) {
         return orderRepository.findByRestaurantId(restaurantId);
+    }
+
+    public List<Order> findOrdersByRestaurantAndStatus(Long restaurantId, Status status) {
+        Specification<Order> spec = Specification
+                .where(OrderSpecifications.hasRestaurantId(restaurantId))
+                .and(OrderSpecifications.hasStatus(status));
+
+        return orderRepository.findAll(spec);
+    }
+
+    public List<Order> getOrdersByUserAndRestaurant(Long userId, Long restaurantId) {
+        return orderRepository.findOrdersByUserAndRestaurant(userId, restaurantId);
     }
 }

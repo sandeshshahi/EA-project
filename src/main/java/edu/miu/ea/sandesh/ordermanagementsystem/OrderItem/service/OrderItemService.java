@@ -1,8 +1,8 @@
 package edu.miu.ea.sandesh.ordermanagementsystem.OrderItem.service;
 
+import edu.miu.ea.sandesh.ordermanagementsystem.Common.Exception.NotFoundException;
 import edu.miu.ea.sandesh.ordermanagementsystem.OrderItem.entity.OrderItem;
 import edu.miu.ea.sandesh.ordermanagementsystem.OrderItem.repository.OrderItemRepository;
-import edu.miu.ea.sandesh.ordermanagementsystem.common.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

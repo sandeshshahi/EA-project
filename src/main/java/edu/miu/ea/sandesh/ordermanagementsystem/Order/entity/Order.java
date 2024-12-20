@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import edu.miu.ea.sandesh.ordermanagementsystem.Order.Status;
 import edu.miu.ea.sandesh.ordermanagementsystem.OrderItem.entity.OrderItem;
 import edu.miu.ea.sandesh.ordermanagementsystem.Restaurant.entity.Restaurant;
+import edu.miu.ea.sandesh.ordermanagementsystem.User.entity.User;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -12,7 +13,11 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "`customer_order`")
+@Table(name = "CUSTOMER_ORDER")
+@NamedQuery(
+        name = "Order.findRestaurantByOrderId",
+        query = "SELECT o.restaurant FROM Order o WHERE o.id =:orderId"
+)
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,15 +34,22 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @Version
+    private Long version;
+
     public Order() {
     }
 
-    public Order(LocalDateTime orderDate, Double totalPrice, Status orderStatus, Restaurant restaurant) {
+    public Order(LocalDateTime orderDate, Double totalPrice, Status orderStatus, Restaurant restaurant, User user) {
         this.orderDate = orderDate;
         this.totalPrice = totalPrice;
         this.orderStatus = orderStatus;
         this.restaurant = restaurant;
-//        this.orderItems = orderItems;
+        this.user = user;
     }
 
     public Long getId() {
@@ -89,4 +101,13 @@ public class Order {
         this.orderItems = orderItems;
     }
 
+    @JsonIgnore
+    public User getUser() {
+        return user;
+    }
+
+    @JsonIgnore
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

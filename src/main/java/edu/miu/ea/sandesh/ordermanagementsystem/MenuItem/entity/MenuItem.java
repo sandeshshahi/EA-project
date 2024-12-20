@@ -6,6 +6,10 @@ import edu.miu.ea.sandesh.ordermanagementsystem.Restaurant.entity.Restaurant;
 import jakarta.persistence.*;
 
 @Entity
+@NamedQuery(
+        name = "MenuItem.findMenuItemByRestaurantId",
+        query = "SELECT m FROM MenuItem m WHERE m.restaurant.id = :restaurantId"
+)
 public class MenuItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +26,8 @@ public class MenuItem {
     @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;
 
+    @Version
+    private Long version;
 
     public MenuItem() {
     }

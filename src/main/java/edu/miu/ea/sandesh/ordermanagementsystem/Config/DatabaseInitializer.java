@@ -1,4 +1,4 @@
-package edu.miu.ea.sandesh.ordermanagementsystem.config;
+package edu.miu.ea.sandesh.ordermanagementsystem.Config;
 
 import edu.miu.ea.sandesh.ordermanagementsystem.MenuItem.Availability;
 import edu.miu.ea.sandesh.ordermanagementsystem.MenuItem.entity.MenuItem;
@@ -90,11 +90,17 @@ public class DatabaseInitializer implements CommandLineRunner {
         MenuItem menuItem15 = this.menuItemService.createMenu(new MenuItem("Grilled Salmon", "Fresh salmon fillet grilled with lemon and herbs", 18.0, Availability.AVAILABLE, restaurant7));
         MenuItem menuItem16 = this.menuItemService.createMenu(new MenuItem("Tiramisu", "Classic Italian dessert with layers of coffee-soaked cake and mascarpone", 6.5, Availability.AVAILABLE, restaurant5));
 
-        Order order1 = this.orderService.createOrder(new Order(LocalDateTime.now().minusDays(4), 22.5, Status.PLACED, restaurant1));
-        Order order2 = this.orderService.createOrder(new Order(LocalDateTime.now().minusDays(2), 30.5, Status.PLACED, restaurant2));
-        Order order3 = this.orderService.createOrder(new Order(LocalDateTime.now().minusDays(3), 40.0, Status.IN_PROGRESS, restaurant3));
-        Order order4 = this.orderService.createOrder(new Order(LocalDateTime.now().minusDays(1), 10.5, Status.COMPLETED, restaurant4));
-        Order order5 = this.orderService.createOrder(new Order(LocalDateTime.now().minusDays(5), 9.5, Status.PLACED, restaurant1));
+        User user1 = this.userService.createUser(new User("John", "john@gmail.com", "abc123", "0987654321", "Fairfield", LocalDateTime.now(), UserRole.ROLE_ADMIN));
+        User user2 = this.userService.createUser(new User("Alice", "alice@gmail.com", "pass123", "1234567890", "New York", LocalDateTime.now().minusDays(10), UserRole.ROLE_CUSTOMER));
+        User user3 = this.userService.createUser(new User("Bob", "bob@gmail.com", "secure456", "2345678901", "Los Angeles", LocalDateTime.now().minusDays(15), UserRole.ROLE_RESTAURANT_OWNER));
+        User user4 = this.userService.createUser(new User("Eve", "eve@gmail.com", "eve789", "3456789012", "Chicago", LocalDateTime.now().minusDays(20), UserRole.ROLE_ADMIN));
+        User user5 = this.userService.createUser(new User("Charlie", "charlie@gmail.com", "charlie321", "4567890123", "Boston", LocalDateTime.now().minusDays(25), UserRole.ROLE_CUSTOMER));
+
+        Order order1 = this.orderService.createOrder(new Order(LocalDateTime.now().minusDays(4), 22.5, Status.PLACED, restaurant1, user1));
+        Order order2 = this.orderService.createOrder(new Order(LocalDateTime.now().minusDays(2), 30.5, Status.PLACED, restaurant2, user3));
+        Order order3 = this.orderService.createOrder(new Order(LocalDateTime.now().minusDays(3), 40.0, Status.IN_PROGRESS, restaurant3, user2));
+        Order order4 = this.orderService.createOrder(new Order(LocalDateTime.now().minusDays(1), 10.5, Status.COMPLETED, restaurant4, user1));
+        Order order5 = this.orderService.createOrder(new Order(LocalDateTime.now().minusDays(5), 9.5, Status.PLACED, restaurant1, user5));
 
         OrderItem orderItem1 = this.orderItemService.createOrderItem(new OrderItem(menuItem2, 2, menuItem2.getPrice(), order1));
         OrderItem orderItem2 = this.orderItemService.createOrderItem(new OrderItem(menuItem2, 1, menuItem2.getPrice(), order1));
@@ -103,12 +109,6 @@ public class DatabaseInitializer implements CommandLineRunner {
         OrderItem orderItem5 = this.orderItemService.createOrderItem(new OrderItem(menuItem2, 1, menuItem2.getPrice(), order4));
         OrderItem orderItem6 = this.orderItemService.createOrderItem(new OrderItem(menuItem3, 1, menuItem3.getPrice(), order5));
         OrderItem orderItem7 = this.orderItemService.createOrderItem(new OrderItem(menuItem3, 1, menuItem3.getPrice(), order4));
-
-        User user1 = this.userService.createUser(new User("John", "john@gmail.com", "abc123", "0987654321", "Fairfield", LocalDateTime.now(), UserRole.ADMIN));
-        User user2 = this.userService.createUser(new User("Alice", "alice@gmail.com", "pass123", "1234567890", "New York", LocalDateTime.now().minusDays(10), UserRole.CUSTOMER));
-        User user3 = this.userService.createUser(new User("Bob", "bob@gmail.com", "secure456", "2345678901", "Los Angeles", LocalDateTime.now().minusDays(15), UserRole.RESTAURANT_OWNER));
-        User user4 = this.userService.createUser(new User("Eve", "eve@gmail.com", "eve789", "3456789012", "Chicago", LocalDateTime.now().minusDays(20), UserRole.ADMIN));
-        User user5 = this.userService.createUser(new User("Charlie", "charlie@gmail.com", "charlie321", "4567890123", "Boston", LocalDateTime.now().minusDays(25), UserRole.CUSTOMER));
 
 
     }

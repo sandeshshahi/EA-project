@@ -22,6 +22,9 @@ public class OrderItem {
     @JoinColumn(name = "menu_item_id", nullable = false)
     private MenuItem menuItem; // Links to the MenuItem being ordered
 
+    @Version
+    private Long version;
+
     public OrderItem() {
     }
 

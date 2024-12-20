@@ -1,24 +1,35 @@
 package edu.miu.ea.sandesh.ordermanagementsystem.User.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import edu.miu.ea.sandesh.ordermanagementsystem.Order.entity.Order;
 import edu.miu.ea.sandesh.ordermanagementsystem.User.UserRole;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
-@Table(name = "`user`")
+@Table(name = "USERS")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @Column(unique = true, updatable = false)
     private String email;
+    @JsonIgnore
     private String password;
     private String phoneNumber;
     private String address;
     private LocalDateTime registrationDate;
     private UserRole userRole;
 
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders;
+
+    @Version
+    private Long version;
+    
     public User() {
     }
 

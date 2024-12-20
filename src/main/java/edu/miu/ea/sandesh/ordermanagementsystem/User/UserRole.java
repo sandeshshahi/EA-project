@@ -1,7 +1,7 @@
 package edu.miu.ea.sandesh.ordermanagementsystem.User;
 
 public enum UserRole {
-    ADMIN,
-    RESTAURANT_OWNER,
-    CUSTOMER,
+    ROLE_ADMIN,
+    ROLE_RESTAURANT_OWNER,
+    ROLE_CUSTOMER,
 }

@@ -1,4 +1,4 @@
-package edu.miu.ea.sandesh.ordermanagementsystem.common.exception;
+package edu.miu.ea.sandesh.ordermanagementsystem.Common.Exception;
 
 public class ErrorResponse {
     private int code;

@@ -19,6 +19,8 @@ public class Restaurant {
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MenuItem> menuItems = new ArrayList<>();
 
+    @Version
+    private Long version;
 
     public Restaurant() {
     }
