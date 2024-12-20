@@ -43,4 +43,8 @@ public class OrderItemService {
     public void deleteOrderItem(long id) {
         orderItemRepository.deleteById(id);
     }
+
+    public List<OrderItem> findOrderItemByOrderId(long id) {
+        return orderItemRepository.findOrderItemsByOrderId(id);
+    }
 }

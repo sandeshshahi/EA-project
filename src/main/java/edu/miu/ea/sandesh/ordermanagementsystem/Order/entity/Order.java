@@ -1,5 +1,6 @@
 package edu.miu.ea.sandesh.ordermanagementsystem.Order.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import edu.miu.ea.sandesh.ordermanagementsystem.Order.Status;
 import edu.miu.ea.sandesh.ordermanagementsystem.OrderItem.entity.OrderItem;
 import edu.miu.ea.sandesh.ordermanagementsystem.Restaurant.entity.Restaurant;
@@ -11,6 +12,7 @@ import java.util.List;
 
 
 @Entity
+@Table(name = "`customer_order`")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +23,7 @@ public class Order {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
+    @JsonIgnore
     private Restaurant restaurant;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -66,18 +69,22 @@ public class Order {
         this.orderStatus = orderStatus;
     }
 
+    @JsonIgnore
     public Restaurant getRestaurant() {
         return restaurant;
     }
 
+    @JsonIgnore
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
     }
 
+    @JsonIgnore
     public List<OrderItem> getOrderItems() {
         return orderItems;
     }
 
+    @JsonIgnore
     public void setOrderItems(List<OrderItem> orderItems) {
         this.orderItems = orderItems;
     }

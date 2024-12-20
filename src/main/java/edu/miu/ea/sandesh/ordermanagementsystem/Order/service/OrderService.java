@@ -1,7 +1,10 @@
 package edu.miu.ea.sandesh.ordermanagementsystem.Order.service;
 
+import edu.miu.ea.sandesh.ordermanagementsystem.Order.Status;
 import edu.miu.ea.sandesh.ordermanagementsystem.Order.entity.Order;
 import edu.miu.ea.sandesh.ordermanagementsystem.Order.repository.OrderRepository;
+import edu.miu.ea.sandesh.ordermanagementsystem.Restaurant.entity.Restaurant;
+import edu.miu.ea.sandesh.ordermanagementsystem.common.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,8 +29,8 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
-    public Order updateOrder(Order order) {
-        Optional<Order> orderOptional = orderRepository.findById(order.getId());
+    public Order updateOrder(Long id, Order order) {
+        Optional<Order> orderOptional = orderRepository.findById(id);
         if (orderOptional.isPresent()) {
             Order orderToUpdate = orderOptional.get();
             orderToUpdate.setOrderDate(order.getOrderDate());
@@ -44,4 +47,20 @@ public class OrderService {
         orderRepository.deleteById(id);
     }
 
+    public Restaurant getRestaurantByOrderId(long orderId) {
+        return orderRepository.findRestaurantByOrderId(orderId);
+    }
+
+    public List<Order> getOrdersByStatus(Status status) {
+        List<Order> orders = orderRepository.findByOrderStatus(status);
+        if (orders.isEmpty()) {
+            throw new NotFoundException("No orders found");
+        }
+        return orders;
+    }
+
+
+    public List<Order> getOrdersByRestaurantId(long restaurantId) {
+        return orderRepository.findByRestaurantId(restaurantId);
+    }
 }

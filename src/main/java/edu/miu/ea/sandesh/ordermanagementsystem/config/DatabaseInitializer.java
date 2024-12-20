@@ -10,6 +10,9 @@ import edu.miu.ea.sandesh.ordermanagementsystem.OrderItem.entity.OrderItem;
 import edu.miu.ea.sandesh.ordermanagementsystem.OrderItem.service.OrderItemService;
 import edu.miu.ea.sandesh.ordermanagementsystem.Restaurant.entity.Restaurant;
 import edu.miu.ea.sandesh.ordermanagementsystem.Restaurant.service.RestaurantService;
+import edu.miu.ea.sandesh.ordermanagementsystem.User.UserRole;
+import edu.miu.ea.sandesh.ordermanagementsystem.User.entity.User;
+import edu.miu.ea.sandesh.ordermanagementsystem.User.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -30,6 +33,9 @@ public class DatabaseInitializer implements CommandLineRunner {
 
     @Autowired
     private OrderItemService orderItemService;
+
+    @Autowired
+    private UserService userService;
 
     @Override
     public void run(String... args) throws Exception {
@@ -86,8 +92,8 @@ public class DatabaseInitializer implements CommandLineRunner {
 
         Order order1 = this.orderService.createOrder(new Order(LocalDateTime.now().minusDays(4), 22.5, Status.PLACED, restaurant1));
         Order order2 = this.orderService.createOrder(new Order(LocalDateTime.now().minusDays(2), 30.5, Status.PLACED, restaurant2));
-        Order order3 = this.orderService.createOrder(new Order(LocalDateTime.now().minusDays(3), 40.0, Status.PLACED, restaurant3));
-        Order order4 = this.orderService.createOrder(new Order(LocalDateTime.now().minusDays(1), 10.5, Status.PLACED, restaurant4));
+        Order order3 = this.orderService.createOrder(new Order(LocalDateTime.now().minusDays(3), 40.0, Status.IN_PROGRESS, restaurant3));
+        Order order4 = this.orderService.createOrder(new Order(LocalDateTime.now().minusDays(1), 10.5, Status.COMPLETED, restaurant4));
         Order order5 = this.orderService.createOrder(new Order(LocalDateTime.now().minusDays(5), 9.5, Status.PLACED, restaurant1));
 
         OrderItem orderItem1 = this.orderItemService.createOrderItem(new OrderItem(menuItem2, 2, menuItem2.getPrice(), order1));
@@ -98,15 +104,12 @@ public class DatabaseInitializer implements CommandLineRunner {
         OrderItem orderItem6 = this.orderItemService.createOrderItem(new OrderItem(menuItem3, 1, menuItem3.getPrice(), order5));
         OrderItem orderItem7 = this.orderItemService.createOrderItem(new OrderItem(menuItem3, 1, menuItem3.getPrice(), order4));
 
+        User user1 = this.userService.createUser(new User("John", "john@gmail.com", "abc123", "0987654321", "Fairfield", LocalDateTime.now(), UserRole.ADMIN));
+        User user2 = this.userService.createUser(new User("Alice", "alice@gmail.com", "pass123", "1234567890", "New York", LocalDateTime.now().minusDays(10), UserRole.CUSTOMER));
+        User user3 = this.userService.createUser(new User("Bob", "bob@gmail.com", "secure456", "2345678901", "Los Angeles", LocalDateTime.now().minusDays(15), UserRole.RESTAURANT_OWNER));
+        User user4 = this.userService.createUser(new User("Eve", "eve@gmail.com", "eve789", "3456789012", "Chicago", LocalDateTime.now().minusDays(20), UserRole.ADMIN));
+        User user5 = this.userService.createUser(new User("Charlie", "charlie@gmail.com", "charlie321", "4567890123", "Boston", LocalDateTime.now().minusDays(25), UserRole.CUSTOMER));
 
-//        // Save restaurants with menu items (using your service or repository)
-//        restaurantService.createRestaurant(restaurant1);
-//        restaurantService.createRestaurant(restaurant2);
-//        restaurantService.createRestaurant(restaurant3);
-//        restaurantService.createRestaurant(restaurant4);
-//        restaurantService.createRestaurant(restaurant5);
-//        restaurantService.createRestaurant(restaurant6);
-//        restaurantService.createRestaurant(restaurant7);
 
     }
 }

@@ -1,5 +1,6 @@
 package edu.miu.ea.sandesh.ordermanagementsystem.OrderItem.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import edu.miu.ea.sandesh.ordermanagementsystem.MenuItem.entity.MenuItem;
 import edu.miu.ea.sandesh.ordermanagementsystem.Order.entity.Order;
 import jakarta.persistence.*;
@@ -14,6 +15,7 @@ public class OrderItem {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", nullable = false)
+    @JsonIgnore
     private Order order; // Links to the Order
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -52,18 +54,22 @@ public class OrderItem {
         this.quantity = quantity;
     }
 
+    @JsonIgnore
     public Order getOrder() {
         return order;
     }
 
+    @JsonIgnore
     public void setOrder(Order order) {
         this.order = order;
     }
 
+    @JsonIgnore
     public MenuItem getMenuItem() {
         return menuItem;
     }
 
+    @JsonIgnore
     public void setMenuItem(MenuItem menuItem) {
         this.menuItem = menuItem;
     }
