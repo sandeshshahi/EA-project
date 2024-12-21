@@ -54,8 +54,8 @@ public class RestaurantService {
         restaurantRepository.deleteById(id);
     }
 
-    public List<Restaurant> getRestaurantsByUser(@RequestParam Long userId) {
-        return restaurantRepository.findRestaurantsByUser(userId);
+    public List<Restaurant> getRestaurantsByUserOrder(@RequestParam Long userId) {
+        return restaurantRepository.findRestaurantsByUserOrder(userId);
     }
 
 }

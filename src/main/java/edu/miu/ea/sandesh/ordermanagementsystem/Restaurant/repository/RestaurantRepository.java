@@ -20,6 +20,6 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
 
     //    Find all restaurants that a specific user has placed orders from
     @Query("SELECT DISTINCT o.restaurant FROM Order o WHERE o.user.id = :userId")
-    List<Restaurant> findRestaurantsByUser(@Param("userId") Long userId);
+    List<Restaurant> findRestaurantsByUserOrder(@Param("userId") Long userId);
 
 }

@@ -20,15 +20,12 @@ public class RestaurantController {
         return restaurantService.getAllRestaurants();
     }
 
-    @SecurityRequirement(name = "auth")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+
     @GetMapping("/{id}")
     public Restaurant getRestaurantById(@PathVariable Long id) {
         return restaurantService.getRestaurantById(id);
     }
 
-    @SecurityRequirement(name = "auth")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CUSTOMER')")
     @GetMapping("/by-name")
     public Restaurant getRestaurantByName(@RequestParam String name) {
         return restaurantService.getRestaurantByName(name);
@@ -63,8 +60,8 @@ public class RestaurantController {
     @SecurityRequirement(name = "auth")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_CUSTOMER')")
     @GetMapping("/by-user")
-    public List<Restaurant> getRestaurantsByUser(Long userId) {
-        return restaurantService.getRestaurantsByUser(userId);
+    public List<Restaurant> getRestaurantsByUserOrder(Long userId) {
+        return restaurantService.getRestaurantsByUserOrder(userId);
     }
 
 }
